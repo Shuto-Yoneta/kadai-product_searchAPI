@@ -22,7 +22,6 @@
             <tbody>
     
                 @foreach ($items as $product)
-              
                 <tr>
                     <td><img src='{{$product['mediumImageUrls']}}' ></td>
                     <td>
