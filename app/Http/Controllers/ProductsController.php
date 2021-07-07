@@ -59,4 +59,31 @@ class ProductsController extends Controller
             
         }
     }
+    
+    public function store(Request $request)
+    {
+        // バリデーション
+        $request->validate([
+            'content' => 'required|max:255',
+        ]);
+
+        // 認証済みユーザ（閲覧者）の投稿として作成（リクエストされた値をもとに作成）
+        $request->user()->products()->create([
+            
+            'imageUrl' => $request-mediumImageUrls,
+            'productUrl' => $request->itemUrl,
+            'productname' => $request->itemName,
+            'productprice' => $request->itemPrice,
+            
+        ]);
+        
+        // メッセージを作成
+        // $want_product = new Message;
+        // $message->title = $request->title;    // 追加
+        // $message->content = $request->content;
+        // $message->save();
+
+        // トップページへリダイレクトさせる
+        return redirect('/');
+    }
 }
